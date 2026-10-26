@@ -6,3 +6,5 @@ pdfplumber==0.11.4
 groq
 requests
 python-dotenv==1.0.1
+pymupdf
+pdf2docx

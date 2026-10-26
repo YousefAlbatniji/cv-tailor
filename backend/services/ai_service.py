@@ -61,15 +61,18 @@ Cover letter content rules:
 Rules for cv_modifications:
 - ONLY modify: summary/objective paragraphs and experience bullet points
 - DO NOT modify: name, contact info, section headings, company names, job titles, or dates
+- Keep every rewritten paragraph about the same length as the original (at most 10% longer) so it fits the CV layout
 - Keep the exact same number of bullet points per job — never add or remove
 - Weave in keywords from the job description naturally
 - If the CV already matches well, return an empty array"""
 
     response = _client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=os.getenv("GROQ_MODEL", "openai/gpt-oss-120b"),
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"},
         temperature=0.7,
+        reasoning_effort="low",
+        max_completion_tokens=8000,
     )
 
     try:

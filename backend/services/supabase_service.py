@@ -42,8 +42,8 @@ def download_original_cv(cv_path: str) -> bytes:
     return resp.content
 
 
-def upload_modified_cv(file_bytes: bytes, session_id: str) -> str:
-    path = f"{session_id}/modified_cv.docx"
+def upload_modified_cv(file_bytes: bytes, session_id: str, ext: str = "docx") -> str:
+    path = f"{session_id}/modified_cv.{ext}"
     headers = {**_HEADERS, "Content-Type": "application/octet-stream", "x-upsert": "true"}
     resp = requests.post(_storage_path(MODIFIED_BUCKET, path), data=file_bytes, headers=headers)
     resp.raise_for_status()

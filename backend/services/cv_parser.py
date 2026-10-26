@@ -23,18 +23,9 @@ def _iter_docx_paragraphs(doc):
 
 
 def _parse_pdf(file_bytes: bytes) -> tuple[str, list[dict]]:
-    lines = []
-    with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
-        for page in pdf.pages:
-            text = page.extract_text()
-            if text:
-                lines.extend(text.split("\n"))
+    from services.pdf_editor import extract_units, units_as_paragraphs
 
-    paragraphs = [
-        {"index": i, "text": line.strip()}
-        for i, line in enumerate(lines)
-        if line.strip()
-    ]
+    paragraphs = units_as_paragraphs(extract_units(file_bytes))
     full_text = "\n".join(p["text"] for p in paragraphs)
     return full_text, paragraphs
 

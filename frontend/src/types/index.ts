@@ -14,6 +14,7 @@ export interface GenerateResponse {
   application_id: string;
   cover_letters: CoverLetters;
   cv_modified_url: string;
+  cv_pdf_url: string | null;
   modification_summary: string;
 }
 
